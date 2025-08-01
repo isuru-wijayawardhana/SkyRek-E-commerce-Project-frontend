@@ -6,7 +6,7 @@ import ProductCard from './components/productCard'
 import HomePage from './pages/homePage.jsx'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import AdminPage from './pages/adminPage.jsx'
-
+import TextPage from './pages/testPage.jsx'
 function App() {
 
   return (
@@ -19,6 +19,7 @@ function App() {
             <Route path='/login'element={<LoginPage/>}/>
             <Route path='/register'element={<RegisterPage/>}/>
             <Route path='/admin/*' element={<AdminPage/>}/>
+            <Route path='/testPage' element={<TextPage/>}/>
           </Routes>
         </div>
       </div>
