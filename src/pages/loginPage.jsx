@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
+import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 
 export default function LoginPage(){
@@ -13,12 +14,12 @@ export default function LoginPage(){
         }).then(
             (response)=>{
                 console.log(response.data)
-                alert("Login Successful")
+                toast.success("Login Successful")
             }
         ).catch(
             (error)=>{
                 console.log(error)
-                alert("Login Failed")
+                toast.error("Login Failed")
             }
         )
     }

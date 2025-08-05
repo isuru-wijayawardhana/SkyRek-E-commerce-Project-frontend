@@ -7,12 +7,14 @@ import HomePage from './pages/homePage.jsx'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import AdminPage from './pages/adminPage.jsx'
 import TextPage from './pages/testPage.jsx'
+import { Toaster } from 'react-hot-toast'
 function App() {
 
   return (
   
       <BrowserRouter>
       <div className='w-full h-screen flex justify-center items-center'>
+        <Toaster position="top-right"/>
           <Routes>
             <Route path='/' element={<HomePage/>}/>
             <Route path='/login'element={<LoginPage/>}/>
