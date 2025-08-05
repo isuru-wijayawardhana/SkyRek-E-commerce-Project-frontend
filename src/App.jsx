@@ -13,7 +13,6 @@ function App() {
   
       <BrowserRouter>
       <div className='w-full h-screen flex justify-center items-center'>
-        <div className='w-[calc(100vw-35px)] h-[calc(100vh-15px)] border border-red-400'>
           <Routes>
             <Route path='/' element={<HomePage/>}/>
             <Route path='/login'element={<LoginPage/>}/>
@@ -21,7 +20,6 @@ function App() {
             <Route path='/admin/*' element={<AdminPage/>}/>
             <Route path='/testPage' element={<TextPage/>}/>
           </Routes>
-        </div>
       </div>
       </BrowserRouter>
 

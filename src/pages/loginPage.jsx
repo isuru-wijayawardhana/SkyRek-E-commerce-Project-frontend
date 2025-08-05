@@ -1,9 +1,28 @@
+import axios from "axios";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
 export default function LoginPage(){
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+
+    function login(){
+        axios.post("http://localhost:5000/api/users/login",{
+            email:email,
+            password:password
+        }).then(
+            (response)=>{
+                console.log(response.data)
+                alert("Login Successful")
+            }
+        ).catch(
+            (error)=>{
+                console.log(error)
+                alert("Login Failed")
+            }
+        )
+    }
+
     return(
         <div className="w-full h-screen bg-[url(./LoginBG.jpg)] bg-center bg-cover flex justify-center items-center">
             <div className="w-[500px] h-[500px] backdrop-blur-sm shadow-2xl rounded-[30px] gap-[20px] relative text-white flex flex-col items-center justify-center">
@@ -25,7 +44,7 @@ export default function LoginPage(){
                     }
                     type="password" className="w-[350px] h-[40px] border border-white rounded-xl"/>
                 </div>
-                <button className="w-[350px] h-[40px] bg-blue-500 rounded-xl text-white text-lg mt-5 hover:bg-blue-600 transition-all duration-300">
+                <button onClick={login} className="w-[350px] h-[40px] bg-blue-500 rounded-xl text-white text-lg mt-5 hover:bg-blue-600 transition-all duration-300">
                     Login
                 </button>
                 <p>Don't have an account? <Link to="/register" className="text-blue-600">sign up</Link> from here</p>
