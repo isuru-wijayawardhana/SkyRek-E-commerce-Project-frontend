@@ -2,6 +2,8 @@ import { FaBoxArchive } from "react-icons/fa6";
 import { GiShoppingBag } from "react-icons/gi";
 import { IoPeople, IoSettings } from "react-icons/io5";
 import { Link, Route, Routes } from "react-router-dom";
+import ProductAdminPage from "./productsAdminPage";
+import AddProduct from "./addProduct";
 
 export default function AdminPage(){
     return(
@@ -17,9 +19,10 @@ export default function AdminPage(){
             <div className="w-[calc(100%-300px)] h-full">
                 <Routes path="/*">
                     <Route path="/" element={<h1>Users</h1>}/>
-                    <Route path="/products" element={<h1>Product</h1>}/>
+                    <Route path="/products" element={<ProductAdminPage/>}/>
                     <Route path="/order" element={<h1>Orders</h1>}/>
                     <Route path="/settings" element={<h1>Settings</h1>}/>
+                    <Route path="/newProduct" element={<AddProduct/>}/>
                     
                 </Routes>
             </div>
