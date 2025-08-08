@@ -1,17 +1,62 @@
+import axios from "axios";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function AddProduct() {
     const [productId, setProductId] = useState("");
     const [productName, setProductName] = useState("");
-    const [AlternativeName, setAlternativeName] = useState("");
-    const [labelPrice, setlabelPrice] = useState("");
+    const [alternativeNames, setAlternativeNames] = useState([]);
+    const [labelledPrice, setlabelPrice] = useState("");
     const [price, setPrice] = useState("");
     const [image, setImage] = useState("");
-    const [Description, setDescription] = useState("");
+    const [description, setDescription] = useState("");
     const [stock, setStock] = useState("");
-    const [isAvailable, setIsAvailable] = useState("");
+    const [isAvailable, setIsAvailable] = useState(true);
     const [category, setCategory] = useState("");
+    const navigate = useNavigate();
+
+
+    function handleSubmit(){
+        const altNameInArray = alternativeNames.split(",")
+        const productData = {
+            productId: productId,
+            name: productName,
+            altName: altNameInArray,
+            labelledPrice: labelledPrice,
+            price: price,
+            image: [],
+            description: description,
+            stock: stock,
+            isAvailable: isAvailable,
+            category: category
+        }
+
+        const token = localStorage.getItem("token")
+        if(token == null){
+            window.location.href = "/login"
+            return;
+        }
+
+        axios.post(import.meta.env.VITE_BACKEND_URL + "/api/products",productData,
+            {
+                headers:{
+                    Authorization: "Bearer "+token
+                }
+            }
+        ).then(
+            (response)=>{
+                toast.success("Product Added Successfully")
+                navigate("/admin/products")
+
+            }
+        ).catch(
+            (error)=>{
+                console.log(error)
+                toast.error("Failed to add products")
+            }
+        )
+    }
 
     return (
         <div className="w-full h-full flex justify-center items-center ">
@@ -35,19 +80,19 @@ export default function AddProduct() {
                     />
                 </div>
                 <div className="w-[500px] flex flex-col gap-[5px]">
-                    <label className="text-sm font-semibold">Alternative Name</label>
+                    <label className="text-sm font-semibold">Alternative Names</label>
                     <input
                         type="text"
-                        value={AlternativeName}
-                        onChange={(e) => setAlternativeName(e.target.value)}
+                        value={alternativeNames}
+                        onChange={(e) => setAlternativeNames(e.target.value)}
                         className="w-full border-[1px] h-[40px] rounded-md"
                     />
                 </div>
                 <div className="w-[200px] flex flex-col gap-[5px]">
                     <label className="text-sm font-semibold">Labelled Price</label>
                     <input
-                        type="text"
-                        value={labelPrice}
+                        type="number"
+                        value={labelledPrice}
                         onChange={(e) => setlabelPrice(e.target.value)}
                         className="w-full border-[1px] h-[40px] rounded-md"
                     />
@@ -55,7 +100,7 @@ export default function AddProduct() {
                 <div className="w-[200px] flex flex-col gap-[5px]">
                     <label className="text-sm font-semibold">Price</label>
                     <input
-                        type="text"
+                        type="number"
                         value={price}
                         onChange={(e) => setPrice(e.target.value)}
                         className="w-full border-[1px] h-[40px] rounded-md"
@@ -74,7 +119,7 @@ export default function AddProduct() {
                     <label className="text-sm font-semibold">Description</label>
                     <textarea
                         type="text"
-                        value={Description}
+                        value={description}
                         onChange={(e) => setDescription(e.target.value)}
                         className="w-full border-[1px] h-[40px] rounded-md"
                     ></textarea>
@@ -82,7 +127,7 @@ export default function AddProduct() {
                 <div className="w-[200px] flex flex-col gap-[5px]">
                     <label className="text-sm font-semibold">Stock</label>
                     <input
-                        type="text"
+                        type="number"
                         value={stock}
                         onChange={(e) => setStock(e.target.value)}
                         className="w-full border-[1px] h-[40px] rounded-md"
@@ -119,7 +164,7 @@ export default function AddProduct() {
                     >
                         Cancel
                     </Link>
-                    <button className="w-[200px] h-[50px] bg-black text-white rounded-md flex justify-center items-center border-[2px] ">
+                    <button onClick={handleSubmit} className="w-[200px] h-[50px] bg-black text-white rounded-md flex justify-center items-center border-[2px] ">
                         Add Product
                     </button>
                 </div>
