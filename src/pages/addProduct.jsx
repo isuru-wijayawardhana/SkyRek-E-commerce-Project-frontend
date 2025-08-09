@@ -38,7 +38,7 @@ export default function AddProduct() {
             altName: altNameInArray,
             labelledPrice: labelledPrice,
             price: price,
-            image: responses,
+            images: responses,
             description: description,
             stock: stock,
             isAvailable: isAvailable,
