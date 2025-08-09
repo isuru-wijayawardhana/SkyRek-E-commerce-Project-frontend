@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
+import uploadFile from "../../utils/meadiaUpload";
 
 export default function AddProduct() {
     const [productId, setProductId] = useState("");
@@ -9,7 +10,7 @@ export default function AddProduct() {
     const [alternativeNames, setAlternativeNames] = useState([]);
     const [labelledPrice, setlabelPrice] = useState("");
     const [price, setPrice] = useState("");
-    const [image, setImage] = useState("");
+    const [image, setImage] = useState([]);
     const [description, setDescription] = useState("");
     const [stock, setStock] = useState("");
     const [isAvailable, setIsAvailable] = useState(true);
@@ -17,7 +18,19 @@ export default function AddProduct() {
     const navigate = useNavigate();
 
 
-    function handleSubmit(){
+    async function handleSubmit(){
+
+        const promisesArray = []
+
+        for(let i=0;i<image.length;i++){
+            const promis = uploadFile(image[i])
+            promisesArray[i] = promis
+
+        }
+        const responses = await Promise.all(promisesArray)
+        
+        
+
         const altNameInArray = alternativeNames.split(",")
         const productData = {
             productId: productId,
@@ -25,7 +38,7 @@ export default function AddProduct() {
             altName: altNameInArray,
             labelledPrice: labelledPrice,
             price: price,
-            image: [],
+            image: responses,
             description: description,
             stock: stock,
             isAvailable: isAvailable,
@@ -109,9 +122,9 @@ export default function AddProduct() {
                 <div className="w-[500px] flex flex-col gap-[5px]">
                     <label className="text-sm font-semibold">Image</label>
                     <input
-                        type="text"
-                        value={image}
-                        onChange={(e) => setImage(e.target.value)}
+                        multiple
+                        type="file"
+                        onChange={(e) => setImage(e.target.files)}
                         className="w-full border-[1px] h-[40px] rounded-md"
                     />
                 </div>
