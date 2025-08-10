@@ -1,20 +1,25 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { BiTrash } from "react-icons/bi";
 import { PiPlusCircle } from "react-icons/pi";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 
 
 export default function ProductAdminPage(){
     const [products,setProduct] = useState([])
+    const [a,seta] = useState(0);
     useEffect(() => {
   axios.get(import.meta.env.VITE_BACKEND_URL + "/api/products", {
     headers: {
       Authorization: "Bearer " + localStorage.getItem("token")
     }
   }).then(res => setProduct(res.data));
-}, []);
+}, [a]);
+  const navigate = useNavigate(); 
+
+
     return(
         <div className="w-full h-full border-[3px]">
             <table >
@@ -51,7 +56,32 @@ export default function ProductAdminPage(){
                                         <td className="p-[10px]">{product.stock}</td>
                                         <td className="p-[10px]">{String(product.isAvailable)}</td>
                                         <td className="p-[10px]">{product.category}</td>
-                                        <td className="p-[10px]"><BiTrash className="bg-red-500 p-[7px] text-3xl rounded-full text-white shadow-2xl"/></td>
+                                        <td className="p-[10px]"><BiTrash className="bg-red-500 p-[7px] text-3xl rounded-full text-white shadow-2xl cursor-pointer" onClick={
+                                          ()=>{
+                                            const token = localStorage.getItem("token")
+                                          if(token == null){
+                                            navigate("/login")
+                                            return
+                                          }
+                                          axios.delete(import.meta.env.VITE_BACKEND_URL+"/api/products/"+product.productId,
+                                            {
+                                              headers:{
+                                                Authorization: `Bearer ${token}`
+                                              }
+                                            }
+                                          ).then(
+                                            (res)=>{
+                                              toast.success("Product deleted Successfully")
+                                              seta(a+1)
+                                            }
+                                          ).catch(
+                                            (error)=>{
+                                              toast.error("Failed to delete product")
+                                            }
+                                          )
+                                          }
+                                        }
+                                        /></td>
                                         
                                     </tr>
                                 ) 
