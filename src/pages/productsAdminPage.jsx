@@ -9,14 +9,14 @@ import { Link, useNavigate } from "react-router-dom";
 
 export default function ProductAdminPage(){
     const [products,setProduct] = useState([])
-    const [a,seta] = useState(0);
+    const [isLoading ,setIsLoding] = useState(true);
     useEffect(() => {
   axios.get(import.meta.env.VITE_BACKEND_URL + "/api/products", {
     headers: {
       Authorization: "Bearer " + localStorage.getItem("token")
     }
   }).then(res => setProduct(res.data));
-}, [a]);
+}, [isLoading]);
   const navigate = useNavigate(); 
 
 
@@ -74,7 +74,7 @@ export default function ProductAdminPage(){
                                           ).then(
                                             (res)=>{
                                               toast.success("Product deleted Successfully")
-                                              seta(a+1)
+                                              setIsLoding(!isLoading)
                                             }
                                           ).catch(
                                             (error)=>{
