@@ -4,25 +4,33 @@ import toast from "react-hot-toast";
 import { BiEdit, BiTrash } from "react-icons/bi";
 import { PiPlusCircle } from "react-icons/pi";
 import { Link, useNavigate } from "react-router-dom";
+import Loader from "../components/loader";
 
 
 
 export default function ProductAdminPage(){
     const [products,setProduct] = useState([])
     const [isLoading ,setIsLoding] = useState(true);
+
+
     useEffect(() => {
-  axios.get(import.meta.env.VITE_BACKEND_URL + "/api/products", {
-    headers: {
-      Authorization: "Bearer " + localStorage.getItem("token")
-    }
-  }).then(res => setProduct(res.data));
-}, [isLoading]);
+      if(isLoading){
+        axios.get(import.meta.env.VITE_BACKEND_URL + "/api/products", {
+        headers: {
+        Authorization: "Bearer " + localStorage.getItem("token")
+        } 
+      }).then((res) => {setProduct(res.data)
+                        setIsLoding(false)
+      });
+      }
+      }, [isLoading]);
+
   const navigate = useNavigate(); 
 
 
     return(
         <div className="w-full h-full border-[3px]">
-            <table >
+            { isLoading ? <Loader/> : <table >
                 <thead>
                     <tr>
                       <th className="p-[10px]">Image</th>
@@ -102,7 +110,7 @@ export default function ProductAdminPage(){
                         )
                     }
                 </tbody>    
-            </table> 
+            </table> }
             <Link to={"/admin/newProduct"} className="fixed right-[60px] bottom-[60px] text-white bg-green-600 rounded-full p-[20px]">
                 <PiPlusCircle className="text-3xl"/>
             </Link>
