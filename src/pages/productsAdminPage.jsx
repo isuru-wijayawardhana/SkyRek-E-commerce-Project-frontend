@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { BiTrash } from "react-icons/bi";
+import { BiEdit, BiTrash } from "react-icons/bi";
 import { PiPlusCircle } from "react-icons/pi";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -35,7 +35,7 @@ export default function ProductAdminPage(){
                       <th className="p-[10px]">stock</th>
                       <th className="p-[10px]">isAvailable</th>
                       <th className="p-[10px]">category</th>
-                      <th className="p-[10px]">Action</th>
+                      <th className="p-[10px] ">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -56,7 +56,9 @@ export default function ProductAdminPage(){
                                         <td className="p-[10px]">{product.stock}</td>
                                         <td className="p-[10px]">{String(product.isAvailable)}</td>
                                         <td className="p-[10px]">{product.category}</td>
-                                        <td className="p-[10px]"><BiTrash className="bg-red-500 p-[7px] text-3xl rounded-full text-white shadow-2xl cursor-pointer" onClick={
+                                        <td className="p-[10px]">
+                                          <div className="flex flex-row items-center gap-2">
+                                          <BiTrash className="bg-red-500 p-[7px] text-3xl rounded-full text-white shadow-2xl cursor-pointer" onClick={
                                           ()=>{
                                             const token = localStorage.getItem("token")
                                           if(token == null){
@@ -81,7 +83,18 @@ export default function ProductAdminPage(){
                                           )
                                           }
                                         }
-                                        /></td>
+                                        />
+                                        <BiEdit 
+                                        onClick={
+                                          ()=>{
+                                            navigate("/admin/updateProduct",
+                                              {
+                                              state:product
+                                            })
+                                          }
+                                        } className="bg-blue-500 p-[7px] text-3xl rounded-full text-white shadow-2xl cursor-pointer"/>
+                                        </div>
+                                        </td>
                                         
                                     </tr>
                                 ) 

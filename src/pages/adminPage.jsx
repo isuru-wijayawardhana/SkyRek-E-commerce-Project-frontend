@@ -4,6 +4,7 @@ import { IoPeople, IoSettings } from "react-icons/io5";
 import { Link, Route, Routes } from "react-router-dom";
 import ProductAdminPage from "./productsAdminPage";
 import AddProduct from "./addProduct";
+import UpdateProduct from "./updateProduct";
 
 export default function AdminPage(){
     return(
@@ -23,6 +24,7 @@ export default function AdminPage(){
                     <Route path="/order" element={<h1>Orders</h1>}/>
                     <Route path="/settings" element={<h1>Settings</h1>}/>
                     <Route path="/newProduct" element={<AddProduct/>}/>
+                    <Route path="/updateProduct" element={<UpdateProduct/>}/>
                     
                 </Routes>
             </div>
