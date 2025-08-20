@@ -1,7 +1,9 @@
+import { Link } from "react-router-dom"
+
 export default function ProductCard(props){
     const product = props.product
     return(
-        <div className="w-[300px] h-[400px] flex flex-col shrink-0 shadow-2xl rounded-2xl overflow-hidden" >
+        <Link to={"/overview/"+product.productId} className="w-[300px] h-[400px] flex flex-col shrink-0 shadow-2xl rounded-2xl overflow-hidden" >
             <img src={product.images[0]} className="w-full h-[60%] object-cover"/>
             <div className="w-full h-[125px] flex flex-col p-[3px]">
                 <span className="text-gray-400 text-[12px]">{product.productId}</span>
@@ -20,6 +22,6 @@ export default function ProductCard(props){
                     (<span>{product.price.toLocaleString('en-US',{ minimumFractionDigits : 2, maximumFractionDigits: 2})}</span>)}
                 </div>
             </div>
-        </div>
+        </Link>
     )
 }

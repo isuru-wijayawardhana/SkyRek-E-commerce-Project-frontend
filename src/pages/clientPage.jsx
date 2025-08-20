@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import Header from "../components/header";
 import ProductPage from "./productPage";
+import ProductOverViewPage from "./productOverView";
 
 export default function ClientWebPage(){
     return(
@@ -13,6 +14,7 @@ export default function ClientWebPage(){
                     <Route path="/review" element={<h1 className="text-3xl text-center">Review</h1>}/>
                     <Route path="/about" element={<h1 className="text-3xl text-center">About us</h1>}/>
                     <Route path="/contact" element={<h1 className="text-3xl text-center">contact us</h1>}/>
+                    <Route path="/overview/:productId" element={<ProductOverViewPage/>}/>
                     <Route path="/*" element={<h1 className="text-3xl text-center">404 not found</h1>}/>
                 </Routes>
             </div>
