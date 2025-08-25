@@ -1,8 +1,8 @@
 export function getCart(){
     let cartInString = localStorage.getItem("cart")
 
-    if(cartInString == null){
-        cartInString = []
+    if(cartInString == null || cartInString.trim() === ""){
+        cartInString = "[]"
         localStorage.setItem("cart",cartInString)
     }
 
@@ -28,6 +28,7 @@ export function addToCart(product,qty){
                 image: product.image
             }
         )
+        localStorage.setItem("cart",JSON.stringify(cart))
     }else{
         const newQty = cart[existingProductIndex].quantity + qty
         if(newQty <= 0){
