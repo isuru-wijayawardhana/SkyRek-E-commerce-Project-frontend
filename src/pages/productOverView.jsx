@@ -1,7 +1,7 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
 import toast from "react-hot-toast"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import Loader from "../components/loader";
 import ImageSlider from "../components/imageSlider";
 import { addToCart, getCart } from "../../utils/cart";
@@ -10,6 +10,7 @@ export default function ProductOverViewPage(){
     const params = useParams()
     const [product,setProduct] = useState(null)
     const [status,setStatus] = useState("loading") //loading,success,error
+    const navigate = useNavigate()
     useEffect(
         ()=>{
             if(status === "loading"){
@@ -50,7 +51,20 @@ export default function ProductOverViewPage(){
                             }
                         </div>
                         <div className="w-full flex flex-row justify-center items-center mt-[20px] gap-[15px]">
-                            <button className="w-[200px] h-[40px] cursor-pointer rounded-xl shadow-2xl text-white bg-blue-900 border-[3px] border-blue-900 hover:bg-white hover:w-[205px] hover:text-blue-900">
+                            <button className="w-[200px] h-[40px] cursor-pointer rounded-xl shadow-2xl text-white bg-blue-900 border-[3px] border-blue-900 hover:bg-white hover:w-[205px] hover:text-blue-900"
+                            onClick={
+                                ()=>{
+                                    navigate("/checkout",{state: {items:
+                                        [{
+                                            productId:product.productId,
+                                            quantity: 1,
+                                            name:product.name,
+                                            image: product.images[0],
+                                            price: product.price
+                                        }]
+                                    }})
+                                }
+                            }>
                                 Buy Now
                             </button>
                             <button className="w-[200px] h-[40px] cursor-pointer rounded-xl shadow-2xl text-white bg-blue-600 border-[3px] border-blue-600 hover:bg-white hover:w-[205px] hover:text-blue-600" onClick={
