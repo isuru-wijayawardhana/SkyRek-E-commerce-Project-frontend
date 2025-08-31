@@ -31,7 +31,7 @@ export default function ProductAdminPage(){
     return(
         <div className="w-full h-full border-[3px]">
             { isLoading ? <Loader/> : <table >
-                <thead>
+                <thead className="w-full h-full border-[3px]">
                     <tr>
                       <th className="p-[10px]">Image</th>
                       <th className="p-[10px]">productId</th>
