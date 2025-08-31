@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { TbTrash } from "react-icons/tb"
 import { useLocation, useNavigate } from "react-router-dom"
 import toast from "react-hot-toast"
@@ -7,6 +7,35 @@ import axios from "axios"
 export default function CheckOut(){
     const location = useLocation()
     const navigate = useNavigate()
+    const [user,setUser] = useState(null)
+    const [name,setName] = useState("")
+    const [address,setAddress] = useState("")
+    const [phone,setPhone] = useState("")
+    useEffect(()=>{
+        const token = localStorage.getItem("token")
+        if(token == null){
+            toast.error("Please login to checout")
+            navigate("login")
+            return
+        }else{
+            axios.get(import.meta.env.VITE_BACKEND_URL + "/api/users/",{
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            }).then(
+                (res)=>{
+                    setUser(res.data)
+                    setName(res.data.firstName + " " + res.data.lastName)
+                }
+            ).catch(
+                (err)=>{
+                    console.error(err)
+                    toast.error("Failed to fech user details")
+                    navigate("/login")
+                }
+            )
+        }
+    },[])
     const [cart , setCart] = useState(location.state.items || [])
     if(location.state.items == null){
         toast.error("Please select item to checkout")
@@ -28,9 +57,14 @@ export default function CheckOut(){
             navigate("/login")
             return
         }
+        if(name === "" || address=== ""|| phone === ""){
+            toast.error("Please Fill the Feilds")
+            return
+        }
+
         const order ={
-            address:"df",
-            phone:125,
+            address:address,
+            phone:phone,
             items : []
         }
         cart.forEach((item)=>{
@@ -46,7 +80,7 @@ export default function CheckOut(){
                 },
             })
             toast.success("Order Place successfully")
-           // navigate("/products")
+            navigate("/products")
         }catch(err){
             console.log(err)
             toast.error("Failed to place order")
@@ -103,6 +137,7 @@ export default function CheckOut(){
                     }
                 )
             }
+            
             <div className="w-[800px] h-[100px] m-[10px] p-[10px] shadow-2xl flex flex-row justify-end items-center relative">
                 <span className="font-bold text-2xl mr=[20px]">
                     Total: {getTotal().toLocaleString('en-US',{ minimumFractionDigits : 2, maximumFractionDigits: 2})}
@@ -111,6 +146,26 @@ export default function CheckOut(){
                 onClick={placeOrder}>
                     Place Order
                 </button>
+            </div>
+            <div className="w-[800px] h-[100px] m-[10px] p-[10px] shadow-2xl flex flex-row justify-center items-center relative">
+                <input className="w-[200px] h-[40px] border border-gray-300 rounded-lg p-[10px] mr-[10px]"
+                    type="text"
+                    placeholder="Enter your name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                />
+                <input className="w-[200px] h-[40px] border border-gray-300 rounded-lg p-[10px] mr-[10px]"
+                    type="text"
+                    placeholder="Enter your address"
+                    value={address}
+                    onChange={(e) => setAddress(e.target.value)}
+                />
+                <input className="w-[200px] h-[40px] border border-gray-300 rounded-lg p-[10px] mr-[10px]"
+                    type="text"
+                    placeholder="Enter your phone Number"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                />
             </div>
         </div>
     )
