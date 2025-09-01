@@ -1,29 +1,34 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
+import Paginator from "../components/paginator"
 
 export default function OrderAdminPage(){
     const [orders, setOrders] = useState([])
     const [loading, setLoading] = useState(true)
+    const [page,setPage] = useState(1)
+    const [totalPages,setTotalPages] = useState(0)
+    const [limit,setLimit] = useState(10)
 
     useEffect(()=>{
 
         if(loading){
-            axios.get(import.meta.env.VITE_BACKEND_URL + "/api/orders",{
+            axios.get(import.meta.env.VITE_BACKEND_URL + "/api/orders/"+page+"/"+limit,{
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("token")}`,
                 },
             })
             .then((res)=>{
-                setOrders(res.data)
+                setOrders(res.data.orders)
+                setTotalPages(res.data.totalPages)
                 setLoading(false)
-                console.log(res.data)
+                //console.log(res.data)
             }).catch((err)=>{
                 console.error(err)
             })
         }
-    },[loading])
+    },[loading,page,limit])
     return(
-        <div className="w-full h-full flex">
+        <div className="w-full h-full flex flex-col">
             <table className="w-full h-full border-[3px] ">
                 <thead>
                     <tr>
@@ -56,7 +61,12 @@ export default function OrderAdminPage(){
                     }
                 </tbody>
             </table>
-            
+            <Paginator currentPage={page}
+				totalPages={totalPages}
+				setCurrentPage={setPage}
+				limit={limit}
+				setLimit={setLimit}
+                setLoading={setLoading}/>
         </div>
     )
 }
