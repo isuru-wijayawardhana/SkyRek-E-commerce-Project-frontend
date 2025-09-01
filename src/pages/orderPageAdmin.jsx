@@ -1,6 +1,7 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
 import Paginator from "../components/paginator"
+import Loader from "../components/loader"
 
 export default function OrderAdminPage(){
     const [orders, setOrders] = useState([])
@@ -28,8 +29,9 @@ export default function OrderAdminPage(){
         }
     },[loading,page,limit])
     return(
-        <div className="w-full h-full flex flex-col">
-            <table className="w-full h-full border-[3px] ">
+        <div className="w-full h-full flex flex-col justify-between">
+            { loading ? <Loader/> :
+            <table className="w-full border-[3px] ">
                 <thead>
                     <tr>
                         <th className="p-[10px]">Order ID</th>
@@ -46,7 +48,7 @@ export default function OrderAdminPage(){
                     {
                         orders.map((order,index)=>{
                             return(
-                            <tr key={index}>
+                            <tr key={index} className="border-b-[1px] hover:bg-blue-600 hover:text-white">
                                 <td className="p-[10px]">{order.orderId}</td>
                                 <td className="p-[10px]">{order.email}</td>
                                 <td className="p-[10px]">{order.name}</td>
@@ -60,7 +62,7 @@ export default function OrderAdminPage(){
                         })
                     }
                 </tbody>
-            </table>
+            </table>}
             <Paginator currentPage={page}
 				totalPages={totalPages}
 				setCurrentPage={setPage}
