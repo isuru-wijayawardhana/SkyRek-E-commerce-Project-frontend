@@ -14,7 +14,7 @@ function App() {
   return (
   
       <BrowserRouter>
-      <div className='w-full h-screen flex justify-center items-center'>
+      <div className='w-full h-screen flex justify-center items-center bg-primary text-secondary'>
         <Toaster position="top-right"/>
           <Routes>
             <Route path='/login'element={<LoginPage/>}/>
