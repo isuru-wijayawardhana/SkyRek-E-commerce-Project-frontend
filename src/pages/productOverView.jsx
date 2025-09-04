@@ -33,13 +33,15 @@ export default function ProductOverViewPage(){
                 status == "loading" && <Loader/>
             }
             {
-                status == "success" && <div className="w-full h-full flex flex-row">
-                    <div className="w-[49%] h-full flex flex-col justify-center items-center">
+                status == "success" && <div className="w-full h-full flex flex-col md:flex-row">
+                    <h1 className="text-2xl font-bold my-4 text-center md:hidden">{product.name} <span className="font-light">{product.altName.join("|")}</span></h1>
+
+                    <div className="w-full md:w-[49%] h-full flex flex-col justify-center items-center">
                         <ImageSlider images={product.images}/>
                     </div>
-                    <div className="w-[49%] h-full flex flex-col items-center pt-[50px]">
-                        <h1 className="text-2xl font-bold">{product.name} <span className="font-light">{product.altName.join("|")}</span></h1>
-                        <p className="text-lg mt-[20px]">{product.description}</p>
+                    <div className="w-full md:w-[49%] h-full flex flex-col items-center pt-[50px]">
+                        <h1 className="text-2xl font-bold my-4 text-center hidden md:block">{/* md:block = show like block upper than md device   */}{product.name} <span className="font-light">{product.altName.join("|")}</span></h1>
+                        <p className="text-lg p-2">{product.description}</p>
                         <div className="w-full flex flex-col items-center mt-[20px]">
                             {
                                 product.labelledPrice > product.price ? 
