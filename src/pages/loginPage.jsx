@@ -1,3 +1,4 @@
+import { useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -7,6 +8,28 @@ export default function LoginPage(){
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const navigate = useNavigate()
+    const googleLogin = useGoogleLogin({
+        onSuccess: (response)=>{
+            axios.post(import.meta.env.VITE_BACKEND_URL+"/api/users/google-login",{
+                token : response.access_token
+            }).then(
+                (response)=>{
+                    console.log(response.data)
+                    localStorage.setItem("token",response.data.token)
+                    toast.success("Login successful")
+                    if(response.data.role == "admin"){
+                        navigate("/admin")
+                    }else if(response.data.role == "user"){
+                        navigate("/")
+                    }
+                }
+            ).catch(
+                ()=>{
+                    toast.error("Google Login Failed")
+                }
+            )
+        }
+    })
 
     function login(){
         axios.post(import.meta.env.VITE_BACKEND_URL+"/api/users/login",{
@@ -54,6 +77,9 @@ export default function LoginPage(){
                 </div>
                 <button onClick={login} className="w-[350px] h-[40px] bg-blue-500 rounded-xl text-white text-lg mt-5 hover:bg-blue-600 transition-all duration-300">
                     Login
+                </button>
+                <button onClick={googleLogin} className="w-[350px] h-[40px] bg-blue-500 rounded-xl text-white text-lg mt-5 hover:bg-blue-600 transition-all duration-300">
+                    Google Login
                 </button>
                 <p>Don't have an account? <Link to="/register" className="text-blue-600">sign up</Link> from here</p>
             </div>
