@@ -5,21 +5,41 @@ import ProductCard from "../components/productCard";
 export default function ProductPage(){
     const [products,setProducts] = useState()
     const [loading,setLoading] = useState(true)
+    const [query,setQuery] = useState("")
 
     useEffect(
         ()=>{
             if(loading){
-                axios.get(import.meta.env.VITE_BACKEND_URL+"/api/products").then(
+                if(query == ""){
+                    axios.get(import.meta.env.VITE_BACKEND_URL+"/api/products").then(
                     (res)=>{
                         setProducts(res.data)
                         setLoading(false)
                     }
+                )}else{
+                    axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/products/search/${query}`).then(
+                        (res)=>{
+                        setProducts(res.data)
+                        setLoading(false)
+                    }
                 )
+                }
             }
-        },[loading]
+        },[loading,query]
     )
     return(
         <div className="w-full h-full">
+            <div className="w-full h-[100px] flex justify-center items-center">
+                <input 
+                type="text"
+                placeholder="Search products..."
+                value={query}
+                onChange={(e)=> {
+                    setQuery(e.target.value)
+                    setLoading(true)
+                }}
+                className="w-[400px] h-[40px] border-gray-500 border rounded-2xl p-2"/>
+            </div>
             {
                 loading ? <Loader/> : 
                 <div className="w-full flex flex-wrap gap-[40px] justify-center p-[20px]">
