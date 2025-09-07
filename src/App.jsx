@@ -8,6 +8,7 @@ import TextPage from './pages/testPage.jsx'
 import { Toaster } from 'react-hot-toast'
 import ClientWebPage from './pages/clientPage.jsx'
 import { GoogleOAuthProvider } from '@react-oauth/google'
+import ForgetPassword from './pages/forgetPassword.jsx'
 const clientId = import.meta.env.VITE_Client_Id
 const clientSecret = import.meta.env.VITE_Client_secret
 function App() {
@@ -23,6 +24,7 @@ function App() {
                 <Route path='/register'element={<RegisterPage/>}/>
                 <Route path='/admin/*' element={<AdminPage/>}/>
                 <Route path='/testPage' element={<TextPage/>}/>
+                <Route path='/forget' element={<ForgetPassword/>}/>
                 <Route path='/*' element={<ClientWebPage/>}/>
               </Routes>
           </div>

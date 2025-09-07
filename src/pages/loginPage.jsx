@@ -82,6 +82,7 @@ export default function LoginPage(){
                     Google Login
                 </button>
                 <p>Don't have an account? <Link to="/register" className="text-blue-600">sign up</Link> from here</p>
+                <p>Forget Password? <Link to="/forget" className="text-yellow-300">Reset Password</Link> from here</p>
             </div>
         </div>
     )
