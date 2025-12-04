@@ -32,8 +32,8 @@ export function addToCart(product,qty){
     }else{
         const newQty = cart[existingProductIndex].quantity + qty
         if(newQty <= 0){
-            const newCart = cart.filter((item,index)=>{ //Array ekk hadala denawa
-                return index !== existingProductIndex
+            const newCart = cart.filter((item,index)=>{ //Filter() =>Array ekk hadala denawa
+                return index !== existingProductIndex //condition ekata anuwa existingProductIndex eka samana wenne nathi index items save karala array ekk hadanawa, mokada existingProductIndex eka samana wena items wala quantity eka 0 nisa.
             })
             localStorage.setItem("cart",JSON.stringify(newCart))
         }else{
