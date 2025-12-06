@@ -6,6 +6,7 @@ import { HiHome } from "react-icons/hi";
 import { MdReviews } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import { FiLogIn, FiLogOut } from "react-icons/fi";
 
 
 export default function Header(){
@@ -25,10 +26,11 @@ export default function Header(){
     function logOut() {
 
     localStorage.removeItem("token");
+    localStorage.removeItem("cart");
     setLoginStatus(false);
     toast.success("LogOut Successful");
     }
-    
+
     return(
         
         <header className="h-[100px] bg-accent flex justify-center items-center relative">
@@ -90,6 +92,26 @@ export default function Header(){
                                     <FcAbout className="text-accent text-2xl mr-2"/>
                                     about
                                 </button>
+                                {!loginStatus &&
+                                <button className="text-accent text-2xl flex flex-row items-center" 
+                                onClick={()=>{
+                                    setIsOpen(false)
+                                    navigate("/login")
+                                }}>
+                                    <FiLogIn className="text-accent text-2xl mr-2"/>
+                                    Login
+                                </button>
+                                }
+                                {loginStatus &&
+                                <button className="text-accent text-2xl flex flex-row items-center" 
+                                onClick={()=>{
+                                    setIsOpen(false)
+                                    logOut()
+                                }}>
+                                    <FiLogOut className="text-accent text-2xl mr-2"/>
+                                    Logout
+                                </button>
+                                }
                             </div>
 
                         </div>
