@@ -33,7 +33,7 @@ export default function Header(){
 
     return(
         
-        <header className="h-[100px] bg-accent flex justify-center items-center relative">
+        <header className="fixed h-[100px] bg-accent flex justify-center items-center w-full">
                 {isOpen &&
                     <div className="fixed z-[100] w-[100vw] h-[100vh] top-0 right-0 bg-[#00000050]">
                         <div className="h-full w-[350px] bg-primary">
