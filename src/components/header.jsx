@@ -4,7 +4,7 @@ import { FcAbout, FcContacts } from "react-icons/fc";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { HiHome } from "react-icons/hi";
 import { MdReviews } from "react-icons/md";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { FiLogIn, FiLogOut } from "react-icons/fi";
 
@@ -29,6 +29,7 @@ export default function Header(){
     localStorage.removeItem("cart");
     setLoginStatus(false);
     toast.success("LogOut Successful");
+    navigate('/')
     }
 
     return(
