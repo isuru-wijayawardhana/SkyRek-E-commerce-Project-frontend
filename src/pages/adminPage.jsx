@@ -6,6 +6,11 @@ import ProductAdminPage from "./productsAdminPage";
 import AddProduct from "./addProduct";
 import UpdateProduct from "./updateProduct";
 import OrderAdminPage from "./orderPageAdmin";
+import { useEffect, useState } from "react";
+import Loader from "../components/loader";
+import axios from "axios";
+import toast from "react-hot-toast";
+import UserInfo from "./userInfo";
 
 export default function AdminPage(){
     const navigate = useNavigate()
