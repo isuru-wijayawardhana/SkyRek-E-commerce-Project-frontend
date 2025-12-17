@@ -3,9 +3,8 @@ import { BiCart, BiStore } from "react-icons/bi";
 import { FcAbout, FcContacts } from "react-icons/fc";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { HiHome } from "react-icons/hi";
-import { LuLogOut } from "react-icons/lu";
 import { MdReviews } from "react-icons/md";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { FiLogIn, FiLogOut } from "react-icons/fi";
 
@@ -13,9 +12,28 @@ import { FiLogIn, FiLogOut } from "react-icons/fi";
 export default function Header(){
     const navigate = useNavigate()
     const [isOpen,setIsOpen] = useState(false)
+    const [loginStatus,setLoginStatus] = useState()
+
+    useEffect(()=>{
+        const value=localStorage.getItem("token")
+        if(value==null){
+            setLoginStatus(false)
+        }else{
+            setLoginStatus(true)
+        }
+    },[])
+
+    function logOut() {
+
+    localStorage.removeItem("token");
+    localStorage.removeItem("cart");
+    setLoginStatus(false);
+    toast.success("LogOut Successful");
+    }
+
     return(
         
-        <header className="fixed h-[100px] bg-accent flex justify-center items-center w-full">
+        <header className="h-[100px] bg-accent flex justify-center items-center relative">
                 {isOpen &&
                     <div className="fixed z-[100] w-[100vw] h-[100vh] top-0 right-0 bg-[#00000050]">
                         <div className="h-full w-[350px] bg-primary">
@@ -74,6 +92,26 @@ export default function Header(){
                                     <FcAbout className="text-accent text-2xl mr-2"/>
                                     about
                                 </button>
+                                {!loginStatus &&
+                                <button className="text-accent text-2xl flex flex-row items-center" 
+                                onClick={()=>{
+                                    setIsOpen(false)
+                                    navigate("/login")
+                                }}>
+                                    <FiLogIn className="text-accent text-2xl mr-2"/>
+                                    Login
+                                </button>
+                                }
+                                {loginStatus &&
+                                <button className="text-accent text-2xl flex flex-row items-center" 
+                                onClick={()=>{
+                                    setIsOpen(false)
+                                    logOut()
+                                }}>
+                                    <FiLogOut className="text-accent text-2xl mr-2"/>
+                                    Logout
+                                </button>
+                                }
                             </div>
 
                         </div>
@@ -90,7 +128,15 @@ export default function Header(){
                     <Link to="/review" className="text-white text-xl ml-4">Review</Link>
                     <Link to="/about" className="text-white text-xl ml-4">About-us</Link>
                     <Link to="/contact" className="text-white text-xl ml-4">Contact-Us</Link>
-                    <Link to="/cart" className="absolute right-[80px]"><BiCart className="text-white text-2xl ml-4"/></Link>
+                    <div className="absolute right-[80px] text-white flex gap-7 items-center justify-center ">
+                    {loginStatus&& 
+                    <button className="text-xl cursor-pointer" onClick={logOut}>LogOut</button>
+                    }
+                    {!loginStatus&&
+                    <Link to="/login" className="text-xl">Login</Link>
+                    } 
+                    <Link to="/cart"><BiCart className="text-white text-3xl"/></Link>
+                    </div> 
             </div>
             
         </header>
