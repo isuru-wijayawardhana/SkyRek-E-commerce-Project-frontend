@@ -91,7 +91,7 @@ export default function CheckOut(){
     }
 
     return(
-        <div className="max-w-[100vw] h-screen flex flex-col py-[40px] px-[10px] items-center">
+        <div className="max-w-[100vw] h-screen flex flex-col py-[40px] px-[10px] items-center pt-[120px]">
             {
                 cart.map((item ,index)=>{
                     return(
@@ -164,7 +164,7 @@ export default function CheckOut(){
             }
             
             {/* Total & Place Order */}
-            <div className="md:w-[800px] w-full h-[100px] m-[10px] p-[10px] shadow-2xl flex flex-row justify-end items-center relative">
+            <div className=" md:w-[800px] w-full h-[100px] m-[10px] p-[10px] shadow-2xl flex flex-row justify-end items-center relative">
                 <span className="font-bold text-2xl mr=[20px]">
                     Total: {getTotal().toLocaleString('en-US',{ minimumFractionDigits : 2, maximumFractionDigits: 2})}
                 </span>

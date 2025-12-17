@@ -6,10 +6,6 @@ import ProductAdminPage from "./productsAdminPage";
 import AddProduct from "./addProduct";
 import UpdateProduct from "./updateProduct";
 import OrderAdminPage from "./orderPageAdmin";
-import { useEffect, useState } from "react";
-import Loader from "../components/loader";
-import axios from "axios";
-import toast from "react-hot-toast";
 
 export default function AdminPage(){
     const navigate = useNavigate()
@@ -55,7 +51,7 @@ export default function AdminPage(){
             </div>
             <div className="w-[calc(100%-300px)] h-full">
                 <Routes path="/*">
-                    <Route path="/" element={<h1>Users</h1>}/>
+                    <Route path="/" element={<UserInfo/>}/>
                     <Route path="/products" element={<ProductAdminPage/>}/>
                     <Route path="/order" element={<OrderAdminPage/>}/>
                     <Route path="/settings" element={<h1>Settings</h1>}/>

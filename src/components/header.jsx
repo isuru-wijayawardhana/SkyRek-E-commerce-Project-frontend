@@ -1,18 +1,21 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BiCart, BiStore } from "react-icons/bi";
 import { FcAbout, FcContacts } from "react-icons/fc";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { HiHome } from "react-icons/hi";
 import { LuLogOut } from "react-icons/lu";
 import { MdReviews } from "react-icons/md";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+import { FiLogIn, FiLogOut } from "react-icons/fi";
+
 
 export default function Header(){
     const navigate = useNavigate()
     const [isOpen,setIsOpen] = useState(false)
-    const token = localStorage.getItem("token")
     return(
-        <header className="h-[100px] bg-accent flex justify-center items-center relative">
+        
+        <header className="fixed h-[100px] bg-accent flex justify-center items-center w-full">
                 {isOpen &&
                     <div className="fixed z-[100] w-[100vw] h-[100vh] top-0 right-0 bg-[#00000050]">
                         <div className="h-full w-[350px] bg-primary">
@@ -71,16 +74,6 @@ export default function Header(){
                                     <FcAbout className="text-accent text-2xl mr-2"/>
                                     about
                                 </button>
-                                <button className="text-accent text-2xl flex flex-row items-center" 
-                                onClick={()=>{
-                                    setIsOpen(false)
-                                    localStorage.removeItem("token")
-                                    localStorage.removeItem("cart")
-                                    navigate("/login")
-                                }}>
-                                    <LuLogOut className="text-accent text-2xl mr-2"/>
-                                    LogOut
-                                </button>
                             </div>
 
                         </div>
@@ -97,19 +90,9 @@ export default function Header(){
                     <Link to="/review" className="text-white text-xl ml-4">Review</Link>
                     <Link to="/about" className="text-white text-xl ml-4">About-us</Link>
                     <Link to="/contact" className="text-white text-xl ml-4">Contact-Us</Link>
-                    <Link to="/cart" className="absolute right-[250px]"><BiCart className="text-white text-xl ml-4"/></Link>
-                    {
-                        token!= null && <button className="absolute right-[80px] text-white text-xl ml-4 cursor-pointer" onClick={
-                            ()=>{
-                                localStorage.removeItem("token")
-                                localStorage.removeItem("cart")
-                                navigate("/login")
-                            }
-                        }>
-                            Logout
-                        </button>
-                    }
+                    <Link to="/cart" className="absolute right-[80px]"><BiCart className="text-white text-2xl ml-4"/></Link>
             </div>
+            
         </header>
     )
 }

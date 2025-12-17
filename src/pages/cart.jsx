@@ -7,7 +7,7 @@ export default function CartPage(){
     const [cart , setCart] = useState(getCart())
     const navigate = useNavigate()
     return(
-        <div className="max-w-[100vw] h-screen flex flex-col py-[40px] px-[10px] items-center">
+        <div className="max-w-[100vw] h-screen flex flex-col py-[40px] px-[10px] items-center pt-[120px]">
             {
                 cart.map(
                     (item)=>{
