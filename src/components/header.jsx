@@ -29,6 +29,7 @@ export default function Header(){
     localStorage.removeItem("cart");
     setLoginStatus(false);
     toast.success("LogOut Successful");
+    navigate("/")
     }
 
     return(
