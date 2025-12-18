@@ -28,7 +28,7 @@ export default function ProductPage(){
         },[loading,query]
     )
     return(
-        <div className="w-full h-full pt-[120px]">
+        <div className="w-full h-full ">
             <div className="w-full h-[100px] flex justify-center items-center">
                 <input 
                 type="text"

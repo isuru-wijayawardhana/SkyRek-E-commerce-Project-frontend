@@ -33,7 +33,7 @@ export default function Contact() {
 
 
     return (
-        <div className="min-h-screen w-full pt-[140px] px-6 bg-gradient-to-b from-purple-50 to-gray-100">
+        <div className="w-full min-h-screen bg-gray-50 py-10 px-6 md:px-20">
 
         
             <h1 className="text-4xl md:text-5xl font-extrabold text-center text-purple-600 mb-12 tracking-wide">
