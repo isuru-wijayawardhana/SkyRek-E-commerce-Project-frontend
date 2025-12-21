@@ -6,7 +6,7 @@ import image3 from '../assets/3.png'
 
 import image1Mobile from '../assets/1.png'
 import image2Mobile from '../assets/2.png'
-import image3Mobile from '../assets/3.png'
+import image3Mobile from '../assets/4.png'
 
 
 import { TfiAngleDoubleLeft } from "react-icons/tfi";
@@ -79,7 +79,7 @@ export default function Banners(){
                 {
                     mobileImages.map((imageURl,index)=>{
                         return(
-                        <div className='w-full h-full min-w-full min-h-full transition-all' key={imageURl} style={{transform : `translatex(-${currentImage * 100}%)`}}>
+                        <div className='w-full h-full min-w-full min-h-full transition-all object-cover' key={imageURl} style={{transform : `translatex(-${currentImage * 100}%)`}}>
                             <img src={imageURl} className='w-full h-full object-cover' alt={imageURl}/>
                         </div>
                         )
