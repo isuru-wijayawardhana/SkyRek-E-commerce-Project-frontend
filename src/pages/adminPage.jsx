@@ -11,6 +11,8 @@ import Loader from "../components/loader";
 import axios from "axios";
 import toast from "react-hot-toast";
 import UserInfo from "./userInfo";
+import ReviewAdmin from "./reviewAdminPage";
+import { MdRateReview } from "react-icons/md";
 
 export default function AdminPage() {
     const navigate = useNavigate();
@@ -96,6 +98,17 @@ export default function AdminPage() {
                                 Orders
                             </Link>
 
+                            <Link 
+                                to="/admin/reviewAdmin" 
+                                className={`flex items-center gap-4 px-4 py-3.5 rounded-xl font-bold transition-all duration-200 group ${
+                                    isActive("/admin/reviewAdmin") 
+                                    ? "bg-blue-600 text-white shadow-md shadow-blue-100" 
+                                    : "text-slate-500 hover:bg-slate-100 hover:text-slate-900"
+                                }`}
+                            >
+                                <MdRateReview size={22} className={isActive("/admin/reviewAdmin") ? "text-white" : "text-slate-400 group-hover:text-blue-600"} />
+                                Review
+                            </Link>
                         </nav>
 
                         {/* Footer / Logout Button */}
@@ -124,6 +137,7 @@ export default function AdminPage() {
                                 <Route path="/order" element={<OrderAdminPage />} />
                                 <Route path="/newProduct" element={<AddProduct />} />
                                 <Route path="/updateProduct" element={<UpdateProduct />} />
+                                <Route path="/reviewAdmin" element={<ReviewAdmin/>}/>
                             </Routes>
                         </div>
                     </main>
