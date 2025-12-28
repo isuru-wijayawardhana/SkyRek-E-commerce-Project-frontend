@@ -45,28 +45,28 @@ export default function Contact() {
 
                 
                 <div className="bg-white shadow-xl rounded-3xl p-10 border-l-4 border-purple-500 transition duration-300 hover:shadow-2xl">
-                    <h2 className="text-3xl font-semibold text-gray-800 mb-4">
+                    <h2 className="text-5xl font-semibold text-gray-800 mb-4">
                         Get in Touch
                     </h2>
 
-                    <p className="text-gray-600 leading-relaxed mb-6">
+                    <p className="text-gray-600 leading-relaxed mb-6 text-xl">
                         We’re here to help! Whether you have questions about our products,
                         need support, or simply want to share feedback — we’d love to hear from you.
                     </p>
 
-                    <div className="mt-6 space-y-4 pt-[50px]">
+                    <div className="mt-4  text-4xl space-y-4 pt-[50px]">
                         <div>
-                            <p className="font-semibold text-gray-700">📞 Phone</p>
+                            <p className="font-semibold mb-3.5 text-gray-700">📞 Phone</p>
                             <p className="text-gray-600">+94 71 542 2671</p>
                         </div>
 
                         <div>
-                            <p className="font-semibold text-gray-700">📧 Email</p>
+                            <p className="font-semibold mb-3.5 text-gray-700">📧 Email</p>
                             <p className="text-gray-600">isuruanuranga@gmail.com</p>
                         </div>
 
                         <div>
-                            <p className="font-semibold text-gray-700">📍 Address</p>
+                            <p className="font-semibold mb-3.5 text-gray-700">📍 Address</p>
                             <p className="text-gray-600">Colombo, Sri Lanka</p>
                         </div>
                     </div>
