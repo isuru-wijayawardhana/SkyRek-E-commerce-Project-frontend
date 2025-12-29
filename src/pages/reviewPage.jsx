@@ -3,13 +3,15 @@ import axios from "axios";
 import ReviewCard from "../components/reviewCard";
 import Loader from "../components/loader";
 import { FaStar, FaFilter } from "react-icons/fa";
-
+import toast from "react-hot-toast";
 export default function ReviewsPage() {
     const [allReviews, setAllReviews] = useState([]);
     const [filteredReviews, setFilteredReviews] = useState([]);
     const [loading, setLoading] = useState(true);
     const [activeFilter, setActiveFilter] = useState("all");
-
+    const [msg, setMsg] = useState("");
+    const [stars, setStars] = useState(5);
+    
     useEffect(() => {
         axios.get(import.meta.env.VITE_BACKEND_URL + "/api/review/get-public-review")
             .then((res) => {
@@ -23,7 +25,46 @@ export default function ReviewsPage() {
                 console.error(err);
                 setLoading(false);
             });
+            
     }, []);
+
+    async function submitReview(e) {
+    e.preventDefault();
+
+    if (!msg.trim()) {
+      toast.error("Please write your review");
+      return;
+    }
+
+    try {
+      setLoading(true);
+
+      const res = await axios.post(
+        import.meta.env.VITE_BACKEND_URL + "/api/review/",
+        {
+          msg,
+          stars,
+        },
+        {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      );
+
+      toast.success(res.data.message);
+      toast.success("Take some time to Display your review")
+      setMsg("");
+      setStars(5);
+    } catch (error) {
+      toast.error(
+        error.response?.data?.message || "Failed to submit review"
+      );
+    } finally {
+      setLoading(false);
+    }
+  }
+
 
     // Filter Logic
     const handleFilter = (stars) => {
@@ -86,6 +127,54 @@ export default function ReviewsPage() {
                     </div>
                 )}
             </div>
+            {localStorage.getItem('token') && (
+                <div className="min-h-screen flex justify-center items-center bg-gray-100">
+      <form
+        onSubmit={submitReview}
+        className="bg-white p-6 rounded-xl shadow-md w-full max-w-md"
+      >
+        <h2 className="text-2xl font-bold mb-4 text-gray-800">
+          Write a Review
+        </h2>
+
+        {/* Stars */}
+        <label className="block mb-2 text-sm font-semibold text-gray-600">
+          Rating
+        </label>
+        <select
+          value={stars}
+          onChange={(e) => setStars(Number(e.target.value))}
+          className="w-full mb-4 p-2 border rounded-lg"
+        >
+          {[1, 2, 3, 4, 5].map((s) => (
+            <option key={s} value={s}>
+              {s} Star{s > 1 && "s"}
+            </option>
+          ))}
+        </select>
+
+        {/* Message */}
+        <label className="block mb-2 text-sm font-semibold text-gray-600">
+          Review
+        </label>
+        <textarea
+          rows="4"
+          value={msg}
+          onChange={(e) => setMsg(e.target.value)}
+          className="w-full p-2 border rounded-lg mb-4"
+          placeholder="Write your experience..."
+        />
+
+        <button
+          type="submit"
+          disabled={loading}
+          className="w-full bg-accent text-white py-2 rounded-lg hover:opacity-90 transition"
+        >
+          {loading ? "Submitting..." : "Submit Review"}
+        </button>
+      </form>
+    </div>
+            )}
         </div>
     );
 }

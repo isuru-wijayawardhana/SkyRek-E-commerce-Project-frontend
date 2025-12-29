@@ -54,7 +54,7 @@ export default function Contact() {
                         need support, or simply want to share feedback — we’d love to hear from you.
                     </p>
 
-                    <div className="mt-4  text-4xl space-y-4 pt-[50px]">
+                    <div className="mt-3 text-xl md:text-3xl space-y-4 pt-[50px]">
                         <div>
                             <p className="font-semibold mb-3.5 text-gray-700">📞 Phone</p>
                             <p className="text-gray-600">+94 71 542 2671</p>
@@ -62,7 +62,7 @@ export default function Contact() {
 
                         <div>
                             <p className="font-semibold mb-3.5 text-gray-700">📧 Email</p>
-                            <p className="text-gray-600">isuruanuranga@gmail.com</p>
+                            <p className="text-gray-600 overflow-clip">isuruanuranga@gmail.com</p>
                         </div>
 
                         <div>
