@@ -145,7 +145,7 @@ export default function Header(){
                         <Link to="/account" className="text-xl"><FaRegUser /></Link>
                     )}
                     {loginStatus&& 
-                    <Link className="text-xl cursor-pointer" onClick={logOut}>LogOut</Link>
+                    <button className="text-xl cursor-pointer" onClick={logOut}>LogOut</button>
                     }
                     {!loginStatus&&
                     <Link to="/login" className="text-xl">Login</Link>
