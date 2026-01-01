@@ -13,6 +13,7 @@ import toast from "react-hot-toast";
 import UserInfo from "./userInfo";
 import ReviewAdmin from "./reviewAdminPage";
 import { MdRateReview } from "react-icons/md";
+import NotFound from "./notFoundPage";
 
 export default function AdminPage() {
     const navigate = useNavigate();
@@ -138,6 +139,7 @@ export default function AdminPage() {
                                 <Route path="/newProduct" element={<AddProduct />} />
                                 <Route path="/updateProduct" element={<UpdateProduct />} />
                                 <Route path="/reviewAdmin" element={<ReviewAdmin/>}/>
+                                <Route path="/*" element={<NotFound/>}/>
                             </Routes>
                         </div>
                     </main>

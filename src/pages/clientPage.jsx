@@ -8,6 +8,9 @@ import CheckOut from "./checkoutPage";
 import Contact from "./contact";
 import HomePage from "./homePage";
 import ReviewsPage from "./reviewPage";
+import UserAccount from "./userAccount";
+import NotFound from "./notFoundPage";
+import UpdateUser from "./updateUser";
 
 export default function ClientWebPage(){
     return(
@@ -23,7 +26,9 @@ export default function ClientWebPage(){
                     <Route path="/overview/:productId" element={<ProductOverViewPage/>}/>
                     <Route path="/cart" element={<CartPage/>}/>
                     <Route path="/checkout" element={<CheckOut/>}/>
-                    <Route path="/*" element={<h1 className="text-3xl text-center">404 not found</h1>}/>
+                    <Route path="/account" element={<UserAccount/>}/>
+                    <Route path="/updateUser" element={<UpdateUser/>}/>
+                    <Route path="/*" element={<NotFound/>}/>
                 </Routes>
             </div>
         </div>

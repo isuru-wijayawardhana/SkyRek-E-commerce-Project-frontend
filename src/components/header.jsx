@@ -7,6 +7,7 @@ import { MdReviews } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { FiLogIn, FiLogOut } from "react-icons/fi";
+import { FaRegUser } from "react-icons/fa";
 
 
 export default function Header(){
@@ -93,6 +94,16 @@ export default function Header(){
                                     <FcAbout className="text-accent text-2xl mr-2"/>
                                     about
                                 </button>
+                                {localStorage.getItem('token') &&
+                                <button className="text-accent text-2xl flex flex-row items-center" 
+                                onClick={()=>{
+                                    setIsOpen(false)
+                                    navigate("/account")
+                                }}>
+                                    <FaRegUser className="text-accent text-2xl mr-2"/>
+                                    account
+                                </button>
+                                }
                                 {!loginStatus &&
                                 <button className="text-accent text-2xl flex flex-row items-center" 
                                 onClick={()=>{
@@ -130,8 +141,11 @@ export default function Header(){
                     <Link to="/about" className="text-white text-xl ml-4">About-us</Link>
                     <Link to="/contact" className="text-white text-xl ml-4">Contact-Us</Link>
                     <div className="absolute right-[80px] text-white flex gap-7 items-center justify-center ">
+                    {localStorage.getItem('token') && (
+                        <Link to="/account" className="text-xl"><FaRegUser /></Link>
+                    )}
                     {loginStatus&& 
-                    <button className="text-xl cursor-pointer" onClick={logOut}>LogOut</button>
+                    <Link className="text-xl cursor-pointer" onClick={logOut}>LogOut</Link>
                     }
                     {!loginStatus&&
                     <Link to="/login" className="text-xl">Login</Link>

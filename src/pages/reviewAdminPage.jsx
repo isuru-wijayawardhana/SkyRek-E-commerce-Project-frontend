@@ -78,7 +78,7 @@ export default function ReviewAdmin() {
                                             <div className="text-xs text-gray-500">{item.email}</div>
                                         </td>
                                         <td className="p-4 max-w-xs">
-                                            <div className="text-xs text-gray-600 truncate italic italic">"{item.msg}"</div>
+                                            <div className="text-xs text-gray-600 truncate italic">"{item.msg}"</div>
                                         </td>
                                         <td className="p-4 text-center">
                                             <div className="flex justify-center text-lg leading-none">
@@ -130,7 +130,7 @@ export default function ReviewAdmin() {
                                     <div className="text-2xl">{renderStars(clickedReview.stars)}</div>
                                     <span className="text-sm font-bold text-gray-400">({clickedReview.stars}/5)</span>
                                 </div>
-                                <p className="text-gray-700 italic text-lg leading-relaxed mb-6 leading-relaxed">
+                                <p className="text-gray-700 italic text-lg leading-relaxed mb-6 ">
                                     "{clickedReview.msg}"
                                 </p>
                                 <div className="flex items-center gap-3 border-t border-gray-200 pt-4">
