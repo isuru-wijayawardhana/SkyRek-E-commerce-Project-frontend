@@ -19,7 +19,7 @@ export default function CheckOut(){
             navigate("login")
             return
         }else{
-            axios.get(import.meta.env.VITE_BACKEND_URL + "/api/users/",{
+            axios.get(import.meta.env.VITE_BACKEND_URL + "/api/users/get-user-details",{
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -27,6 +27,8 @@ export default function CheckOut(){
                 (res)=>{
                     setUser(res.data)
                     setName(res.data.firstName + " " + res.data.lastName)
+                    setAddress(res.data.address)
+                    setPhone(res.data.phone)
                 }
             ).catch(
                 (err)=>{
@@ -59,9 +61,15 @@ export default function CheckOut(){
             navigate("/login")
             return
         }
-        if(name === "" || address=== ""|| phone === ""){
+        if(name === "" || address=== ""|| address=== "NOT GIVEN"||phone=== "NOT GIVEN"|| phone === ""){
             toast.error("Please Fill the Feilds")
             return
+        }
+        const phoneRegex = /^(?:\+94|0)\d{9}$/;
+
+        if (!phoneRegex.test(phone)) {
+        toast.error("Please enter a valid Sri Lankan phone number");
+        return;
         }
 
         const order ={
