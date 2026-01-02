@@ -62,6 +62,10 @@ export default function CheckOut() {
             toast.error("Please enter a valid Sri Lankan phone number")
             return
         }
+        if (cart.length===0) {
+            toast.error("Please Add some items first.")
+            return
+        }
 
         const order = {
             address: address,

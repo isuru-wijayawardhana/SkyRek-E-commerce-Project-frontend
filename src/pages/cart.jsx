@@ -2,6 +2,7 @@ import { useState } from "react"
 import { addToCart, getCart, getTotal } from "../../utils/cart"
 import { TbTrash } from "react-icons/tb"
 import { useNavigate } from "react-router-dom"
+import toast from "react-hot-toast"
 
 export default function CartPage(){
     const [cart , setCart] = useState(getCart())
@@ -61,7 +62,11 @@ export default function CartPage(){
                 <button className="absolute left-[10px] w-[150px] h-[50px] cursor-pointer rounded-2xl bg-accent border-[2px] border-accent text-white hover:bg-white hover:text-accent"
                 onClick={
                     ()=>{ 
-                            navigate("/checkout", { state: {items:cart , fromCart: true}})
+                        if (cart.length === 0) {
+                            toast.error("Your cart is empty! Add some items first.")
+                        }else{
+                            navigate("/checkout", { state: { items: cart, fromCart: true } })
+                        }
                     }
                 }>
                     Checkout
@@ -70,3 +75,5 @@ export default function CartPage(){
         </div>
     )
 }
+        
+        
