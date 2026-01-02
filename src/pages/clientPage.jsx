@@ -11,6 +11,8 @@ import ReviewsPage from "./reviewPage";
 import UserAccount from "./userAccount";
 import NotFound from "./notFoundPage";
 import UpdateUser from "./updateUser";
+import OrderHistory from "./OrderHistory";
+
 
 export default function ClientWebPage(){
     return(
@@ -28,6 +30,7 @@ export default function ClientWebPage(){
                     <Route path="/checkout" element={<CheckOut/>}/>
                     <Route path="/account" element={<UserAccount/>}/>
                     <Route path="/updateUser" element={<UpdateUser/>}/>
+                    <Route path="/orderHistory" element={<OrderHistory/>}/>
                     <Route path="/*" element={<NotFound/>}/>
                 </Routes>
             </div>
