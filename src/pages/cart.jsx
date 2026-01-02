@@ -61,7 +61,7 @@ export default function CartPage(){
                 <button className="absolute left-[10px] w-[150px] h-[50px] cursor-pointer rounded-2xl bg-accent border-[2px] border-accent text-white hover:bg-white hover:text-accent"
                 onClick={
                     ()=>{
-                        navigate("/checkout", { state: {items:cart}})
+                        navigate("/checkout", { state: {items:cart , fromCart: true}})
                     }
                 }>
                     Checkout

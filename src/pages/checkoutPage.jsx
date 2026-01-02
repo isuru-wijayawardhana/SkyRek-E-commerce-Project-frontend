@@ -76,8 +76,15 @@ export default function CheckOut() {
             await axios.post(import.meta.env.VITE_BACKEND_URL + "/api/orders", order, {
                 headers: { Authorization: `Bearer ${token}` },
             })
-            toast.success("Order Placed successfully")
-            navigate("/products")
+            //Only clear localStorage if we came from the Cart Page
+            if (location.state?.fromCart) {
+                localStorage.removeItem("cart");
+                toast.success("Order placed and cart cleared!");
+            } else {
+                toast.success("Order placed successfully!");
+            }
+
+            navigate("/products");
 
         } catch (err) {
             console.log(err)
