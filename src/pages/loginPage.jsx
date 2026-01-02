@@ -54,7 +54,7 @@ export default function LoginPage() {
       }
     }).catch((error) => {
       console.log(error);
-      toast.error("Login Failed");
+      toast.error(error.response?.data?.message||"Login Failed");
     });
   }
 
